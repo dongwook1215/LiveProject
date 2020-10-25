@@ -39,9 +39,9 @@ function loginCheck(){
         url: '/v2/user/me',
         success: function(response) {
             document.getElementById("loginKakao").innerHTML="로그아웃";
-            document.getElementById("kakao-link-btn").style.visibility="visible";
             document.getElementById("User").innerHTML=response.kakao_account.profile.nickname;
             console.log("회원 정보",response);
+            document.getElementById("kakao-link-btn").style.visibility="visible";
         },
         fail: function(error) {
             document.getElementById("loginKakao").innerHTML="로그인";
