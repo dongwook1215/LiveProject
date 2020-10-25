@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% load static %}
+<html>
+
+<head>
+	<title>상세페이지</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+	<script>
+		Kakao.init('68d1d8551d90569d790986ad261cc48f');
+		console.log(Kakao.isInitialized());
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+	<link rel="stylesheet" href="{% static 'css/modal.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/rotate.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/Detail/main_detail.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/Detail/detail.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/fontawesome-all.min.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/Detail/modal_media.css' %}" />
+	<link rel="stylesheet" href="{% static 'css/Detail/swipper.css' %}" />
+
+	<!-- <link rel="stylesheet" href="{% static 'css/Detail/story_modal.css' %}"> -->
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!-- <script src="{% static 'js/story_modal.js' %}"></script> -->
+	<script src="{% static 'js/clock.js' %}"></script>
+	<script src="{% static 'js/modal.js' %}"></script>
+	<script src="{% static 'js/j_live_main.js' %}"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script> -->
+	<script src="{% static 'js/j_live_detail.js' %}"></script>
+	<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+</head>
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+
+				<!-- Header -->
+				<header id="header">
+					<a href="" class="logo"><strong><img src="{% static 'images/title.png' %}"
+								style="height: 75px;" /></strong></a>
+
+				</header>
+
+				<!-- Content -->
+				<section>
+					<header class="main">
+						<h2 id="item_name">{{item.name}}</h2>
+					</header>
+					<!-- Content -->
+					<div class="row">
+						<div class="col-6 col-12-small">
+							<div align="center">사진을 클릭하면 스토리를 볼 수 있어요!!!</div>
+							<button type="button" id="popup_open_btn"><a href="#ex1" rel="modal:open">
+								<img src="{{ item_img.upload_files.url }}"
+									style="width:100%; height:100%; border-radius: 5px;">
+							</a></button>
+
+							<div class="box">
+								{% if item.livetime is None %}
+								<button><a href="">Live 미정 상품입니다.</a></button>
+								{% else %}
+								<button><a href="">{{item.livetime}}</a></button>
+								{% endif %}
+							</div>
+						</div>
+
+						<div class="info col-12-small">
+							<br><br>
+							<h3 id="item_interesting">이 제품에 대해 말하자면 ....</h3>
+
+							<div class="detail_brand">
+
+								<div class="detail_brand_info">
+									<a class="detail_brand_sales">LOTTE ON 판매가 :
+										<a class="detail_brand_price">{{item.price}}</a></a>
+
+								</div>
+
+								<hr />
+
+								<div class="delivery_info">
+									<a>요약정보</a>
+									<div>{{item.s_explain}}</div>
+								</div>
+
+								<hr />
+
+								<div class="delivery_info">
+									<a>상세정보</a>
+									<div>{{item.explain}}</div>
+								</div>
+
+								<hr />
+
+								<a>현재 시간</a>
+								<div class="box">
+									<button><h3 id="clock">Time</h3></button>
+								</div>
+
+								<ul class="actions fit">
+									{% if item.liveurl == "" %}
+									<li><a href="" class="button primary fit">Live 등록 전</a></li>
+									{% else %}
+									<li><a href="{{ item.liveurl }}" class="button primary fit">Live이동</a></li>
+									{% endif %}
+									<!-- <li id="recomend"><a href="" class="button fit">추천하기</a></li> -->
+									<li>
+										<a id="kakao-link-btn" href="javascript:sendLink()" class="button fit" style="visibility: hidden;">
+											추천하기
+										</a>
+										<script type='text/javascript'>
+											//<![CDATA[
+											  // // 사용할 앱의 JavaScript 키를 설정해 주세요.
+											//   Kakao.init('68d1d8551d90569d790986ad261cc48f');
+											  // // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+											  Kakao.Link.createDefaultButton({
+												container: '#kakao-link-btn',
+												objectType: 'feed',
+												content: {
+												  title: '롯데 LiveOn',
+												  description: '다양한 상품을 라이브커머스를 통해 만나보세요',
+												  imageUrl: 'https://joonhu-an.github.io/1/%EB%A1%AF%EB%8D%B0%EC%98%A8.jpg',
+												  link: {
+													mobileWebUrl: 'https://developers.kakao.com',
+													webUrl: 'https://developers.kakao.com'
+												  }
+												},
+												social: {
+												  likeCount: 286,
+												  commentCount: 45,
+												  sharedCount: 845
+												},
+												buttons: [
+												  {
+													title: '웹으로 보기',
+													link: {
+													  mobileWebUrl: 'https://developers.kakao.com',
+													  webUrl: 'https://developers.kakao.com'
+													}
+												  },
+												  {
+													title: '앱으로 보기',
+													link: {
+													  mobileWebUrl: 'https://developers.kakao.com',
+													  webUrl: 'https://developers.kakao.com'
+													}
+												  }
+												]
+											  });
+											//]]>
+										</script>
+									</li>	
+								</ul>
+
+							</div>
+
+						</div>
+					</div>
+					<hr class="major" />
+
+				</section>
+
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<div id="sidebar">
+			<div class="inner">
+
+				<!-- Search -->
+
+				<!-- Menu -->
+				<nav id="menu">
+					<header class="major">
+						<h2 id="User">Menu</h2>
+					</header>
+					<ul>
+						<li><a href="{% url 'live_main' %}">전체</a></li>
+						<li><a href="{% url 'category_fashion' %}">패션</a></li>
+						<li><a href="{% url 'category_food' %}">식품</a></li>
+						<li><a href="{% url 'category_living' %}">뷰티</a></li>
+						<li><a id="loginKakao"></a></li>
+					</ul>
+				</nav>
+
+				
+
+				<!-- Section -->
+				
+
+				
+
+			</div>
+		</div>
+
+	</div>
+
+	<div id="ex1" class="modal">
+		영상은 밀어서 확인하세요!!
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				{% if item_file != None %}
+					{% for i in item_file %}
+					<div class="swiper-slide"><video src="{{ i.upload_files.url }}" controls="true"></video></div>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<!-- Add Arrows -->
+			<!-- <div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div> -->
+		</div>
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+		<script>
+			var swiper = new Swiper('.swiper-container', {
+				spaceBetween: 30,
+				effect: 'fade',
+				pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+				},
+				navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+				},
+			});
+		</script> -->
+		<div id="modalBox">
+			<div id="leftBox">
+			</div>
+			<div id="rightBox">
+				<p>
+					<div id="disqus_thread"></div>
+					<script>
+			
+						/**
+						*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+						*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+						/*
+						var disqus_config = function () {
+						this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+						this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+						};
+						*/
+						(function () { // DON'T EDIT BELOW THIS LINE
+							var d = document, s = d.createElement('script');
+							s.src = 'https://your-sites-3.disqus.com/embed.js';
+							s.setAttribute('data-timestamp', +new Date());
+							(d.head || d.body).appendChild(s);
+						})();
+					</script>
+					<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+							Disqus.</a></noscript>
+			
+				</p>
+			</div>
+		</div>
+	</div>
+
+
+	
+
+
+	<!-- Scripts -->
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/browser.min.js' %}"></script>
+	<script src="{% static 'js/breakpoints.min.js' %}"></script>
+	<script src="{% static 'js/util.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+	<!-- <script src="{% static 'js/modal_media.js' %}"></script> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script> -->
+
+	<script>
+		// var swiper = new Swiper('.swiper-container', {
+		//   	navigation: {
+		// 	nextEl: '.swiper-button-next',
+		// 	prevEl: '.swiper-button-prev',
+		//   },
+		// });
+	</script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>
+<!-- <script src="{% static 'js/j_live_detail.js' %}"></script> -->
+<script>
+	new Swiper('.swiper-container', {
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+		},
+		paginationClickable: true
+    });
+    
+</script>
+</html>

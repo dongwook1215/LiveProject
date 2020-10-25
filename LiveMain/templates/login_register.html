@@ -1,0 +1,63 @@
+{% load static %}
+<html>
+    <head>
+        <title>로그인 / 회원가입</title>
+        <!-- css -->
+        <link rel="stylesheet" href="{% static 'css/login_register/login_register.css' %}">
+        <link rel="stylesheet" href="{% static 'css/fadeInDown.css' %}">
+        <style>
+            .wrap {
+                height: 100%;
+                width: 100%;
+                background-image: url("{% static 'images/login_register/background2.jpg' %}");
+                background-position: center;
+                background-size: cover;
+                position: absolute;
+            }
+        </style>
+        <!-- script  -->
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/j_login_register.js' %}"></script>
+    </head>
+    <body id="page" class="fadeInDown animated">
+        <div class="wrap">
+            <div class="form-wrap">
+                <div class="button-wrap">
+                    <div id="btn"></div>
+                    <button type="button" class="togglebtn" onclick="login()">LOG IN</button>
+                    <button type="button" class="togglebtn" onclick="register()">REGISTER</button>
+                </div>
+                <div id="login" class="input-group">
+                    <input type="text" id="login_id" class="input-field" placeholder="User name or Email" required>
+                    <input type="password" id="login_password" class="input-field" placeholder="Enter Password" required>
+                    <button class="submit" id="login_btn">Login</button>
+                </div>
+                <div id="register" class="input-group">
+                    <input type="text" id="register_id" class="input-field" placeholder="User name or Email" required>
+                    <input type="email" id="register_email" class="input-field" placeholder="Your Email" required>
+                    <input type="password" id="register_password" class="input-field" placeholder="Enter Password" required>
+                    <button class="submit" id="register_btn">REGISTER</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            var x = document.getElementById("login");
+            var y = document.getElementById("register");
+            var z = document.getElementById("btn");
+            
+            
+            function login(){
+                x.style.left = "50px";
+                y.style.left = "450px";
+                z.style.left = "0";
+            }
+
+            function register(){
+                x.style.left = "-400px";
+                y.style.left = "50px";
+                z.style.left = "110px";
+            }
+        </script>
+
+    </body>
+</html>
