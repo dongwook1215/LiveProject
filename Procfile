@@ -1,1 +1,1 @@
-web: gunicorn LiveProject.wsgi --log-file -
+web: gunicorn Live.wsgi --log-file -
